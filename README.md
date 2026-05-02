@@ -1,6 +1,6 @@
 # Campus Notification System - RA2311030010007
 
-This repository contains the implementation for the Afford Medical Technologies Campus Hiring Evaluation.
+This repository contains the implementation for the Campus Hiring Evaluation.
 
 ## Project Overview
 
