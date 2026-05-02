@@ -1,0 +1,30 @@
+﻿node.exe : (node:28092) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of 
+file:///C:/Users/sanik/.gemini/antigravity/scratch/RA2311030010007/priority_inbox/index.ts is not specified and it 
+doesn't parse as CommonJS.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:28092) [M...se as CommonJS.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to 
+C:\Users\sanik\.gemini\antigravity\scratch\RA2311030010007\priority_inbox\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+============================
+  Top 10 Priority Notifications
+============================
+
+#    Type         Score    Message                             Timestamp
+--------------------------------------------------------------------------------
+1    Placement    3.9560   Microsoft Corporation hiring        2026-05-02 04:00:39
+2    Placement    3.6956   Meta Platforms Inc. hiring          2026-05-01 22:01:03
+3    Placement    3.6734   Advanced Micro Devices Inc. hiring  2026-05-01 21:30:27
+4    Placement    3.6527   Advanced Micro Devices Inc. hiring  2026-05-01 21:01:51
+5    Placement    3.1961   Marriott International Inc. hiring  2026-05-01 10:31:27
+6    Placement    3.0878   Amgen Inc. hiring                   2026-05-01 08:01:57
+7    Placement    3.0227   Visa Inc. hiring                    2026-05-01 06:32:09
+8    Result       3.0000   mid-sem                             2026-05-02 05:01:21
+9    Placement    3.0000   Broadcom Inc. hiring                2026-05-01 06:00:45
+10   Result       2.9997   internal                            2026-05-02 05:00:57

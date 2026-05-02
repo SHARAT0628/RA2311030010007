@@ -168,3 +168,77 @@ Response → Frontend → UI Update
 - **Auth**: Add JWT-based authentication middleware for user-scoped notifications.
 - **Real-time**: Integrate WebSockets or Server-Sent Events (SSE) for live notification push.
 - **Queue**: Use a message queue (e.g., BullMQ, RabbitMQ) for high-volume notification delivery.
+
+---
+
+# Stage 1
+
+## Priority Inbox
+
+Users receive a high volume of campus notifications daily. To help them focus on what matters most, the Priority Inbox surfaces the top N most important unread notifications using a scoring algorithm that combines notification type weight and recency.
+
+## Scoring Formula
+
+Each notification receives a priority score:
+
+```
+priorityScore = typeWeight + recencyScore
+```
+
+**Type Weights:**
+| Type | Weight |
+|---|---|
+| Placement | 3 |
+| Result | 2 |
+| Event | 1 |
+
+**Recency Score:**
+Normalized between 0 and 1 using min-max normalization across all fetched notifications:
+
+```
+recencyScore = (timestamp - minTimestamp) / (maxTimestamp - minTimestamp)
+```
+
+The newest notification gets a recency score of 1, the oldest gets 0.
+
+**Score Ranges:**
+- Placement: 3.0 → 4.0
+- Result: 2.0 → 3.0
+- Event: 1.0 → 2.0
+
+A very recent Result can outrank an old Placement, making this a genuine weighted combination of both factors rather than a strict type hierarchy.
+
+## Approach
+
+1. Fetch all notifications from the evaluation API
+2. Compute min and max timestamps across the full list
+3. Score each notification using the formula above
+4. Sort descending by score
+5. Return the top N results (default: 10)
+
+## Efficiency Consideration
+
+Notifications keep arriving continuously. For large datasets, sorting all N items each time is O(N log N). A more efficient approach is to maintain a **min-heap of size K** (the desired top count), processing each incoming notification in O(log K) time. This gives O(N log K) overall, which is significantly faster when K << N.
+
+For this implementation, since N is fetched in one API call, sort is used. In a streaming/real-time scenario, the heap approach would be applied.
+
+## Sample Output
+
+```
+============================
+  Top 10 Priority Notifications
+============================
+
+#    Type         Score    Message                             Timestamp
+--------------------------------------------------------------------------------
+1    Placement    3.9560   Microsoft Corporation hiring        2026-05-02 04:00:39
+2    Placement    3.6956   Meta Platforms Inc. hiring          2026-05-01 22:01:03
+3    Placement    3.6734   Advanced Micro Devices Inc. hiring  2026-05-01 21:30:27
+4    Placement    3.6527   Advanced Micro Devices Inc. hiring  2026-05-01 21:01:51
+5    Placement    3.1961   Marriott International Inc. hiring  2026-05-01 10:31:27
+6    Placement    3.0878   Amgen Inc. hiring                   2026-05-01 08:01:57
+7    Result       3.0000   mid-sem                             2026-05-02 05:01:21
+8    Placement    3.0000   Broadcom Inc. hiring                2026-05-01 06:00:45
+9    Result       2.9997   internal                            2026-05-02 05:00:57
+10   Result       2.9785   mid-sem                             2026-05-02 04:31:39
+```
