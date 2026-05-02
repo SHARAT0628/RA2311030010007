@@ -242,3 +242,36 @@ For this implementation, since N is fetched in one API call, sort is used. In a 
 9    Result       2.9997   internal                            2026-05-02 05:00:57
 10   Result       2.9785   mid-sem                             2026-05-02 04:31:39
 ```
+
+---
+
+# Stage 2
+
+## Frontend Implementation
+
+The frontend is a responsive Next.js 14 application built with TypeScript and pure CSS Modules. It provides a real-time dashboard for managing campus notifications with advanced filtering and priority viewing capabilities.
+
+## Key Features
+
+- **External API Integration**: Fetches real-time data from the evaluation server.
+- **Priority Inbox**: Implements the scoring algorithm in the frontend to surface critical notifications.
+- **Category Filtering**: Allows users to filter by Placement, Result, or Event.
+- **Read/Remove States**: Local state management to track viewed notifications and remove items.
+- **Responsive Design**: Custom CSS breakpoints ensure usability on both desktop and mobile devices.
+- **CORS Proxy**: Implemented a Next.js Route Handler (`/api/proxy/notifications`) to handle server-side API communication, bypassing browser CORS restrictions.
+
+## Technical Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript (Strict mode)
+- **Styling**: Vanilla CSS Modules (no external libraries)
+- **State Management**: Custom React Hooks (`useNotifStore`)
+- **Logging**: Integrated `Log()` middleware in all API and component lifecycle events.
+
+## UI Design
+
+The UI follows a premium "dark mode" aesthetic with:
+- **Glassmorphic** header and control panel.
+- **Type-specific** accent borders (Blue for Placement, Orange for Result, Green for Event).
+- **Subtle animations** on hover and state transitions.
+- **Dynamic badges** for "Unread" status and Priority scores.
